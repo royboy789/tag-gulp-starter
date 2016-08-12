@@ -11,9 +11,17 @@ var gulp        = require('gulp'),
     iconfont    = require('gulp-iconfont'),
     iconfontCSS = require('gulp-iconfont-css'),
     sourcemaps  = require('gulp-sourcemaps'),
-    cssnano     = require('gulp-cssnano');
+    cssnano     = require('gulp-cssnano'),
+    browserSync = require('browser-sync').create();
 
-// @todo add LiveReload
+gulp.task('browser-sync', function() {
+  browserSync.init({
+    open: 'external',
+    host: 'local.quicken.com',
+    proxy: 'local.quicken.com',
+    port: 3306,
+  });
+});
 
 // Prefix with project code
 var fontName = 'icons';
