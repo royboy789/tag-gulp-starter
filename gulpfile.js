@@ -1,17 +1,18 @@
-var gulp        = require('gulp'),
-    sass        = require('gulp-sass'),
-    rename      = require('gulp-rename'),
-    jshint      = require('gulp-jshint'),
-    scsslint    = require('gulp-sass-lint'),
-    cache       = require('gulp-cached'),
-    prefix      = require('autoprefixer'),
-    notify      = require('gulp-notify'),
-    postcss     = require('gulp-postcss'),
-    imagemin    = require('gulp-imagemin'),
-    iconfont    = require('gulp-iconfont'),
-    iconfontCSS = require('gulp-iconfont-css'),
-    sourcemaps  = require('gulp-sourcemaps'),
-    cssnano     = require('gulp-cssnano');
+var gulp         = require('gulp'),
+    sass         = require('gulp-sass'),
+    rename       = require('gulp-rename'),
+    jshint       = require('gulp-jshint'),
+    scsslint     = require('gulp-sass-lint'),
+    cache        = require('gulp-cached'),
+    prefix       = require('autoprefixer'),
+    notify       = require('gulp-notify'),
+    postcss      = require('gulp-postcss'),
+    imagemin     = require('gulp-imagemin'),
+    iconfont     = require('gulp-iconfont'),
+    iconfontCSS  = require('gulp-iconfont-css'),
+    gulpSequence = require('gulp-sequence'),
+    sourcemaps   = require('gulp-sourcemaps'),
+    cssnano      = require('gulp-cssnano');
 
 // @todo add LiveReload
 
@@ -71,5 +72,11 @@ gulp.task('watch', function() {
   gulp.watch('js/*.js', ['jshint']);
 });
 
-gulp.task('icons', ['optimize-images', 'iconfont', 'scss']);
+gulp.task('icons', gulpSequence(
+  'optimize-images',
+  'iconfont',
+  'scss'
+ )
+);
+
 gulp.task('default', ['scss', 'watch']);
