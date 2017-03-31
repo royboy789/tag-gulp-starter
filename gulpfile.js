@@ -41,7 +41,7 @@ gulp.task('optimize-images', function() {
     .pipe(imagemin());
 });
 
-gulp.task('iconfont', function() {
+gulp.task('iconfont', ['optimize-images'], function() {
   gulp.src(['./images/svg/*.svg'])
     .pipe(iconfontCSS({
       fontName: fontName,
@@ -69,6 +69,7 @@ gulp.task('watch', function() {
   livereload.listen();
   gulp.watch('scss/**/*.scss', ['scss']);
   gulp.watch('js/*.js', ['jshint']);
+  gulp.watch('images/svg/*.svg', ['icons']);
 });
 
 gulp.task('icons', ['optimize-images', 'iconfont', 'scss']);
