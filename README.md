@@ -31,6 +31,10 @@ TAG SCSS Starter w/ Gulp
   This will optimize your SVGs and create an icon font with scss partial.
 * Tip: If your icons seem tiny or invisible despite normal font sizes, make sure that none of the svg files have `width="100%"` and/or `height="100%"` on the `<svg>` tag.
 
+### Generating Spritesheets
+* There's a task called `gulp sprite` that will optimize images, generate spritesheet, and compile SCSS.
+* Currently you need to have the `@2x` suffix on images and they *must* be in the same directory as your regular `1x` sprites.
+
 ### Sass-lint
 Sass-lint accepts `YML` or `JSON` files. Config needs to be in project root unless you specify in `package.json`.
 
