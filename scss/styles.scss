@@ -1,5 +1,14 @@
 @import 'susy';
+@import 'compass';
 @import 'base/base';
 @import 'global/global';
 @import 'layout/layout';
 @import 'components/components';
+
+.box {
+  @include border-radius(100px);
+  background-color: indianred;
+  display: inline-block;
+  height: 400px;
+  width: 400px;
+}

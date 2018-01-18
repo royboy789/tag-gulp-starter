@@ -12,7 +12,9 @@ var gulp        = require('gulp'),
     iconfontCSS = require('gulp-iconfont-css'),
     sourcemaps  = require('gulp-sourcemaps'),
     cssnano     = require('gulp-cssnano'),
-    livereload  = require('gulp-livereload');
+    livereload  = require('gulp-livereload'),
+    compass     = require('compass-importer'),
+    spritesmith = require('gulp.spritesmith');
 
 // LiveReload requires the browser plugin to automatically watch
 // for changes and update.
@@ -24,7 +26,8 @@ gulp.task('scss', ['scsslint'], function() {
   return gulp.src('scss/styles.scss')
     // .pipe(sourcemaps.init())
     .pipe(sass({
-      includePaths: ['node_modules/susy/sass']
+      includePaths: ['node_modules/susy/sass'],
+      importer: compass
     }))
     .on('error', notify.onError({
       title:    "Gulp",
@@ -59,6 +62,18 @@ gulp.task('iconfont', function() {
       fontHeight: 1001
     }))
     .pipe(gulp.dest('./fonts/'));
+});
+
+// @TODO figure out why separate directory won't work.
+gulp.task('sprite', ['optimize-images', 'scss'], function() {
+  var spriteData = gulp.src('images/sprite/*.png').pipe(spritesmith({
+    retinaSrcFilter: ['images/sprite/*@2x.png'],
+    retinaImgName: 'sprite@2x.png',
+    imgName: 'sprite.png',
+    cssName: '../scss/global/_spritesheet.scss',
+  }));
+
+  return spriteData.pipe(gulp.dest('images/'));
 });
 
 gulp.task('scsslint', function () {
